@@ -413,7 +413,7 @@ function parse(raw){
   if ((m=s.match(/\bdans (\d+|une|un|1 2|une demi) ?(min|minutes?|h|heures?)\b/))){
     const n = m[1]==="une demi"?30 : /^(une|un)$/.test(m[1])?1 : +m[1];
     out.remindAt = Date.now() + (m[1]==="une demi" ? 30 : /^h/.test(m[2]) ? n*60 : n)*60e3;
-    strip(/\bdans (\d+|une|un|une demi) ?(min|minutes?|h|heures?)\b/i);
+    strip(/\bdans (\d+|une demi[- ]?|une|un) ?(min|minutes?|h|heures?)\b/i);
   } else if ((m=s.match(/\b(?:a |vers |avant )?(\d{1,2}) ?h ?(\d{2})?\b/)) && +m[1]<24){
     const d=new Date(out.due+"T00:00"); d.setHours(+m[1],+(m[2]||0),0,0);
     if (out.due===dayKey() && d.getTime()<Date.now()) { /* heure déjà passée : on ignore */ }
